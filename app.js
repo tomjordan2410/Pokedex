@@ -494,7 +494,13 @@ function buildComparisonSection(pokemon) {
             const summary = document.createElement("summary")
             summary.textContent = `${pokemon.name.replace(/-/g, " ")} vs ${otherPokemon.name.replace(/-/g, " ")}`
             summary.classList.add("capitalise")
-            results.replaceChildren(summary, buildComparisonTable(pokemon, otherPokemon))
+            const tableContainer = document.createElement("div")
+            tableContainer.classList.add("comparison-table-container")
+            tableContainer.tabIndex = 0
+            tableContainer.setAttribute("role", "region")
+            tableContainer.setAttribute("aria-label", "Pokémon comparison table")
+            tableContainer.appendChild(buildComparisonTable(pokemon, otherPokemon))
+            results.replaceChildren(summary, tableContainer)
             results.hidden = false
             results.open = true
             status.textContent = "Comparison loaded."
@@ -548,7 +554,7 @@ function buildComparisonTable(first, second) {
         row.appendChild(heading)
         for (const value of values) {
             const cell = document.createElement("td")
-            cell.textContent = value
+            cell.append(value)
             if (highlight && values[0] !== values[1] && value === Math.max(...values)) {
                 cell.classList.add("table-success", "fw-bold")
             }
@@ -561,7 +567,12 @@ function buildComparisonTable(first, second) {
     addRow("Pokédex ID", pokemon.map(p => `#${p.id}`))
     addRow("Height", pokemon.map(p => `${p.height / 10} m`))
     addRow("Weight", pokemon.map(p => `${p.weight / 10} kg`))
-    addRow("Types", pokemon.map(p => p.types.map(item => item.type.name).join(" / ")))
+    addRow("Types", pokemon.map(p => {
+        const types = document.createElement("div")
+        types.classList.add("comparison-types")
+        for (const item of p.types) types.appendChild(buildTypeImage(item.type.name))
+        return types
+    }))
     for (const [key, label] of statDefinitions) {
         addRow(label, pokemon.map(p => p.stats.find(item => item.stat.name === key)?.base_stat ?? "Unavailable"), true)
     }
