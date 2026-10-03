@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css?v=side-navigation-8">
+    <title>Pokedex</title>
+</head>
+
+<body>
+    <header>
+        <h1 class="page-title">Pokedex</h1>
+        <form id="form">
+            <div class="search-field">
+                <label for="search">Search Pokémon by name or number</label>
+                <input type="text" name="search" id="search" autocomplete="off" placeholder="e.g. Pikachu or 25">
+                <ul id="pokemon-suggestions" class="search-suggestions" aria-label="Pokémon suggestions" hidden></ul>
+            </div>
+            <input type="submit" value="Search" id="searchBtn">
+            <button type="button" class="randomise">Randomise</button>
+        </form>
+        <a href="#saved-pokemon-section" id="saved-pokemon-link">My Pokémon list (0)</a>
+    </header>
+    <main>
+        <p id="storage-notice" class="storage-notice" role="status" aria-atomic="true"></p>
+        <p id="pokemon-status" class="visually-hidden" role="status" aria-atomic="true"></p>
+        <div id="pokemon-view">
+
+		<div class="error-panel" role="alert" aria-atomic="true">
+			<p class="error-message"></p>
+		</div>
+
+        <div hidden class="loader" aria-hidden="true">
+            <img src="images/Pokeball.gif" alt="">
+            <p>Loading...</p>
+        </div>
+
+		<div class="main-container">
+            <p>Search for a Pokemon</p>
+		</div>
+        <button type="button" class="previous navigation-panel" aria-label="Previous Pokémon" hidden><span aria-hidden="true">‹</span><span>Previous</span></button>
+        <button type="button" class="next navigation-panel" aria-label="Next Pokémon" hidden><span aria-hidden="true">›</span><span>Next</span></button>
+        </div>
+        <section id="saved-pokemon-section" class="saved-pokemon-section" aria-labelledby="saved-pokemon-heading" hidden>
+            <button type="button" id="back-to-pokedex" class="btn btn-outline-secondary mb-3">Back to Pokédex</button>
+            <h2 id="saved-pokemon-heading" class="h4" tabindex="-1">My Pokémon list</h2>
+            <p id="saved-pokemon-status" role="status"></p>
+            <ul id="saved-pokemon-list" class="saved-pokemon-list"></ul>
+        </section>
+	</main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="app.js"></script>
+</body>
+</html>
