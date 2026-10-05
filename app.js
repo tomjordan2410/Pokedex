@@ -743,6 +743,10 @@ function updateSuggestions(input = searchInput, list = suggestions) {
         label.classList.add("capitalise")
         label.textContent = name.replace(/-/g, " ")
         button.appendChild(label)
+        button.addEventListener("pointerdown", event => {
+            // Keep focus on the input so mobile blur cannot hide the button before click.
+            if (event.isPrimary && event.button === 0) event.preventDefault()
+        })
         button.addEventListener("click", () => {
             input.value = name
             input.dispatchEvent(new Event("input", { bubbles: true }))
